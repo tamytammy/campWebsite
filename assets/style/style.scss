@@ -5,6 +5,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
-@import '../scss/index';
+//-----------------------tool----------------------------//
 @import '../scss/animate';
 @import '../scss/color';
+
+
+//-----------------------page-style----------------------------//
+@import '../scss/index';
+@import '../scss/result';

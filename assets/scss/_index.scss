@@ -11,14 +11,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        img{
+        i{
             border-radius: 100%;
-            border: 1px solid #303030;
+            background-color: #fff;
+            border: 1px solid $camp-green;
+            color: $camp-green;
             padding: 10px;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             &:hover{
-                background-color: #5b8e80;
+                background-color: $camp-green;
+                color: #fff;
+                box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.2);
             }
         }
 
@@ -26,12 +30,15 @@
             animation: scrollOut 0.5s backwards;
             display: none;
             padding: 10px 15px;
-            border-radius: 15px;
-            border: 1px solid #303030;
+            border-radius: 40px;
+            border: 1px solid $camp-green;
             margin-left: 10px;
             &:focus{
                 outline: none;
                 
+            }
+            &::placeholder{
+                color: $camp-green;
             }
         }
         input.active{
@@ -45,16 +52,5 @@
 .main{
     .main-container{
         // border: 1px solid #000;
-    }
-}
-
-.result{
-    .result-container{
-        border: 1px solid #000;
-        .result__box{
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 15px;
-        }
     }
 }

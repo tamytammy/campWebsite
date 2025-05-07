@@ -5,53 +5,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-.header .logo {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.search .search-container {
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.search .search-container img {
-  border-radius: 100%;
-  border: 1px solid #303030;
-  padding: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-.search .search-container img:hover {
-  background-color: #5b8e80;
-}
-.search .search-container input {
-  animation: scrollOut 0.5s backwards;
-  display: none;
-  padding: 10px 15px;
-  border-radius: 15px;
-  border: 1px solid #303030;
-  margin-left: 10px;
-}
-.search .search-container input:focus {
-  outline: none;
-}
-.search .search-container input.active {
-  animation: scrollIn 0.5s forwards;
-  display: inline-block;
-}
-
-.result .result-container {
-  border: 1px solid #000;
-}
-.result .result-container .result__box {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
-}
-
 @keyframes scrollIn {
   0% {
     width: 0%;
@@ -71,4 +24,68 @@
     width: 0%;
     transform: translateX(-100%);
   }
+}
+.header .logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search .search-container {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search .search-container i {
+  border-radius: 100%;
+  background-color: #fff;
+  border: 1px solid #5b8e80;
+  color: #5b8e80;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.search .search-container i:hover {
+  background-color: #5b8e80;
+  color: #fff;
+  box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.search .search-container input {
+  animation: scrollOut 0.5s backwards;
+  display: none;
+  padding: 10px 15px;
+  border-radius: 40px;
+  border: 1px solid #5b8e80;
+  margin-left: 10px;
+}
+.search .search-container input:focus {
+  outline: none;
+}
+.search .search-container input::-moz-placeholder {
+  color: #5b8e80;
+}
+.search .search-container input::placeholder {
+  color: #5b8e80;
+}
+.search .search-container input.active {
+  animation: scrollIn 0.5s forwards;
+  display: inline-block;
+}
+
+.result {
+  background-color: rgba(242, 180, 116, 0.5);
+}
+.result .result-container .result__box {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+.result .result-container .result__box-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  border: 1px solid #000;
+  width: 30%;
+  padding: 25px 0;
 }/*# sourceMappingURL=style.css.map */

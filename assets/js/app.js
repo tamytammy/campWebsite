@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+    const campData = []
+    const trailData = []
     // 露營地JSON
     $.ajax({
         url: './assets/data/campgrounds.json',
@@ -7,6 +8,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             console.log(data[0]);
+            campData = data
         },
         error: function (err) {
             console.error('Error fetching data:', err);
@@ -20,6 +22,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             console.log(data[0]);
+            trailData = data
         },
         error: function (err) {
             console.error('Error fetching data:', err);
