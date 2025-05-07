@@ -2,4 +2,73 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.header .logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search .search-container {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search .search-container img {
+  border-radius: 100%;
+  border: 1px solid #303030;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.search .search-container img:hover {
+  background-color: #5b8e80;
+}
+.search .search-container input {
+  animation: scrollOut 0.5s backwards;
+  display: none;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: 1px solid #303030;
+  margin-left: 10px;
+}
+.search .search-container input:focus {
+  outline: none;
+}
+.search .search-container input.active {
+  animation: scrollIn 0.5s forwards;
+  display: inline-block;
+}
+
+.result .result-container {
+  border: 1px solid #000;
+}
+.result .result-container .result__box {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+@keyframes scrollIn {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 30%;
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes scrollOut {
+  0% {
+    width: 30%;
+    transform: translateX(0);
+  }
+  100% {
+    width: 0%;
+    transform: translateX(-100%);
+  }
 }/*# sourceMappingURL=style.css.map */

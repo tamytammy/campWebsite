@@ -1,0 +1,21 @@
+@keyframes scrollIn {
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 30%;
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scrollOut {
+    0%{
+        width: 30%;
+        transform: translateX(0);
+    }
+    100%{
+        width: 0%;
+        transform: translateX(-100%);
+    }
+}
