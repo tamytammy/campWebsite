@@ -1,3 +1,10 @@
+.fixed-top{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(#fff, 0.6);
+    backdrop-filter: blur(10px);
+}
 .header{
     .logo{
         width: 100%;
@@ -48,6 +55,7 @@
         
     }
 }
+
 
 .main{
     .main-container{

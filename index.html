@@ -12,14 +12,14 @@
     <script src="./assets/js/jQuery v3.7.1.js"></script>
 </head>
 <body>
-    <div id="app">
-        <header class="header">
-            <div class="logo">
-            <img src="./assets/images/logo.png.png" alt="My logo">
-            </div>
-        </header>
-
-        <section class="search">
+    <div id="app" style="position: relative;">
+        <div class="fixed-top">
+            <header class="header">
+                <div class="logo">
+                    <img src="./assets/images/logo.png.png" alt="My logo">
+                </div>
+            </header>
+            <section class="search">
             <div class="search-container">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" id="search" placeholder="下周去哪露?" class="search-input">
@@ -31,7 +31,8 @@
                     })
                 </script>
             </div>
-        </section>
+            </section>
+        </div>
 
         <main class="main">
             <div class="main-container">
@@ -41,20 +42,7 @@
 
         <main class="result">
             <div class="result-container">
-                <div class="result__box">
-                    <div class="result__box-img">
-                        <img src="" alt="" width="150px" height="150px">
-                    </div>
-                    <div class="result__box-info">
-                        <div class="result__box-info-title">露營地名稱</div>
-                        <div class="result__box-info-address">地址</div>
-                        <!-- <div class="result__box-info-phone">電話</div>
-                        <div class="result__box-info-website">網站</div> -->
-                    </div>
-                    <div class="like-btn">
-                        <button type="button" width="50px" height="50px">+</button>
-                    </div>
-                </div>
+                
             </div>
         </main>
     </div>

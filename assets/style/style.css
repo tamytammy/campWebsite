@@ -25,6 +25,15 @@
     transform: translateX(-100%);
   }
 }
+.fixed-top {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
 .header .logo {
   width: 100%;
   display: flex;
@@ -79,13 +88,31 @@
 .result .result-container .result__box {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 15px;
+  border-bottom: 1px solid #ccc;
 }
 .result .result-container .result__box-info {
   display: flex;
   flex-direction: column;
   align-items: start;
   border: 1px solid #000;
-  width: 30%;
+  width: 60%;
   padding: 25px 0;
+  gap: 15px;
+  cursor: pointer;
+}
+.result .result-container .result__box .like-wrapper button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.result .result-container .result__box .like-wrapper button i {
+  display: none;
+  font-size: 30px;
+  color: rgb(184, 70, 89);
+  transition: all 0.3s ease-out;
+}
+.result .result-container .result__box .like-wrapper button .active {
+  display: inline-block;
 }/*# sourceMappingURL=style.css.map */

@@ -4,14 +4,34 @@
         .result__box{
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 10px 15px;
+            border-bottom: 1px solid #ccc;
             &-info{
                 display: flex;
                 flex-direction: column;
                 align-items: start;
                 border: 1px solid #000;
-                width: 30%;
+                width: 60%;
                 padding: 25px 0;
+                gap: 15px;
+                cursor: pointer;
+            }
+            .like-wrapper{
+                button{
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+                    i{
+                        display: none;
+                        font-size: 30px;
+                        color: rgb(184, 70, 89);
+                        transition: all .3s ease-out;
+                    }
+                    .active{
+                        display: inline-block;
+                    }
+                }
             }
         }
     }
