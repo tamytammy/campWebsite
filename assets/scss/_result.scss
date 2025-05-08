@@ -36,3 +36,16 @@
         }
     }
 }
+
+.camp-container{
+    display: flex;
+    justify-content: space-around;
+    .camp__detail{
+        border: 1px solid #000;
+    }
+
+    .camp__images{
+        border: 1px solid #000;
+        width: 70%;
+    }   
+}

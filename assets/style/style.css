@@ -115,4 +115,16 @@
 }
 .result .result-container .result__box .like-wrapper button .active {
   display: inline-block;
+}
+
+.camp-container {
+  display: flex;
+  justify-content: space-around;
+}
+.camp-container .camp__detail {
+  border: 1px solid #000;
+}
+.camp-container .camp__images {
+  border: 1px solid #000;
+  width: 70%;
 }/*# sourceMappingURL=style.css.map */

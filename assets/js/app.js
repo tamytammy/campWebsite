@@ -7,7 +7,13 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            
             console.log(data[0]);
+            
+            data.forEach((item, index) => {
+                item.id = index;
+            })
+
             campData = data
             renderCamp(campData)
         },
@@ -30,7 +36,24 @@ $(document).ready(function () {
         }
     });
 
-    //露營地搜尋, 每次先清空避免重複渲染
+    //天氣API
+    $.ajax({
+       url: 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093',
+    type: 'GET',
+    dataType: 'json',
+    data: {
+        Authorization: 'CWA-067306D4-D204-46B1-AA1C-A6A3E4D6C7AC',
+        locationId: 'F-D0047-089' // 這是台北市的locationId
+    },
+    success: function (data) {
+        console.log(data); // 查看第一筆城市資料
+    },
+    error: function (err) {
+        console.error('Error fetching data:', err);
+    }
+    });
+
+    //露營地渲染, 每次先清空避免重複渲染
     function renderCamp(campData){
         let campHtml = ''
         $('.result-container').empty()
@@ -40,7 +63,7 @@ $(document).ready(function () {
                     <div class="result__box-img">
                         <img src="" alt="" width="150px" height="150px">
                     </div>
-                    <div class="result__box-info">
+                    <div class="result__box-info campLink" onclick="location.href='campDetail.html?id=${campData[i].id}'">
                         <div class="result__box-info-title">露營地名稱：${campData[i].name}</div>
                         <div class="result__box-info-address">地址：${campData[i].city}${campData[i].district}${campData[i].address}</div>
                     </div>
@@ -66,7 +89,7 @@ $(document).ready(function () {
     }
 
 
-
+    //露營地即時搜尋功能
     $('#search').on('input', function (){
         let searchValue = this.value.trim()
         let searchWord = searchValue.split(/\s+/)
@@ -76,6 +99,19 @@ $(document).ready(function () {
         )
         renderCamp(filterCampData)
     })
+
+    //露營地網址連結
+    function campDetail(){
+        let url = new URLSearchParams(window.location.search)
+        let id = url.get('id')
+        let camp = campData.find(camp => camp.id == id)
+        console.log(camp)
+    }
+
+    $('.campLink').on('click', function(){
+        campDetail(this)
+    })
+
 
     
 });

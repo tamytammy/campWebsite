@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下周去露營！</title>
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/style/style.css">
+    
+    <script src="./assets/js/jQuery v3.7.1.js"></script>
+</head>
+<body>
+    <div id="app" style="position: relative;">
+        <div class="fixed-top">
+            <header class="header">
+                <div class="logo">
+                    <img src="./assets/images/logo.png.png" alt="My logo">
+                </div>
+            </header>
+            <section class="search">
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search" placeholder="下周去哪露?" class="search-input">
+                <script>
+                    const searchIcon = document.querySelector('.search-icon');
+                    const searchInput = document.querySelector('.search-input');
+                    searchIcon.addEventListener('click',()=>{
+                        searchInput.classList.toggle('active');
+                    })
+                </script>
+            </div>
+            </section>
+        </div>
+
+        <main class="main">
+            <div class="main-container">
+                <div class="camp-container">
+                    <div class="camp__detail">
+                        <p>露營地名稱：</p>
+                        <p>地址：</p>
+                        <p>電話：</p>
+                        <p>網址：暫無</p>
+                    </div>
+                    <div class="camp__images">
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- <main class="result">
+            <div class="result-container">
+                
+            </div>
+        </main> -->
+    </div>
+    
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
