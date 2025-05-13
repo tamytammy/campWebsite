@@ -16,6 +16,7 @@ $(document).ready(function () {
 
             campData = data
             renderCamp(campData)
+            campDetail()
         },
         error: function (err) {
             console.error('Error fetching data:', err);
@@ -28,7 +29,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            console.log(data[0]);
+            // console.log(data[0]);
             trailData = data
         },
         error: function (err) {
@@ -46,7 +47,7 @@ $(document).ready(function () {
         locationId: 'F-D0047-089' // 這是台北市的locationId
     },
     success: function (data) {
-        console.log(data); // 查看第一筆城市資料
+        // console.log(data); 
     },
     error: function (err) {
         console.error('Error fetching data:', err);
@@ -63,7 +64,7 @@ $(document).ready(function () {
                     <div class="result__box-img">
                         <img src="" alt="" width="150px" height="150px">
                     </div>
-                    <div class="result__box-info campLink" onclick="location.href='campDetail.html?id=${campData[i].id}'">
+                    <div class="result__box-info campLink" data-id="${campData[i].id}">
                         <div class="result__box-info-title">露營地名稱：${campData[i].name}</div>
                         <div class="result__box-info-address">地址：${campData[i].city}${campData[i].district}${campData[i].address}</div>
                     </div>
@@ -105,12 +106,35 @@ $(document).ready(function () {
         let url = new URLSearchParams(window.location.search)
         let id = url.get('id')
         let camp = campData.find(camp => camp.id == id)
+
+        if(camp.phone == null || camp.website == null){
+            camp.phone = '暫無資料'
+            camp.website = '暫無資料'
+        }
+        let campHtml = `
+            <div class="camp__detail">
+                <p>露營地名稱：${camp.name}</p>
+                <p>所屬區域：${camp.city}${camp.district}</p>
+                <p>地址：${camp.address}</p>
+                <p>電話：${camp.phone}</p>
+                <p>網址：${camp.website}</p>
+            </div>
+            <div class="camp__images">
+                
+            </div>
+        `
+        $('.camp-container').append(campHtml)
+
         console.log(camp)
+
     }
 
-    $('.campLink').on('click', function(){
-        campDetail(this)
+    $('.result-container').on('click', '.campLink', function(){
+        const campId = this.dataset.id
+        location.href = `campDetail.html?id=${campId}`
     })
+
+  
 
 
     

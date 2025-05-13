@@ -39,13 +39,31 @@
 
 .camp-container{
     display: flex;
-    justify-content: space-around;
     .camp__detail{
+        width: 40%;
         border: 1px solid #000;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        border-bottom-right-radius: 40px;
     }
 
     .camp__images{
         border: 1px solid #000;
-        width: 70%;
+        width: 60%;
+        border-top-left-radius: 40px;
     }   
+}
+
+.weather-container{
+    border: 1px solid red;
+    height: 150px;
+    width: 100%;
+}
+
+.trail-container{
+    border: 1px solid blue;
+    height: 150px;
+    width: 100%;
 }
