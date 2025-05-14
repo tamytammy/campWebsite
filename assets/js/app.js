@@ -176,7 +176,7 @@ $(document).ready(function () {
         let campCity = camp.city
         let weatherCity = weatherData.find(city =>city.LocationName == campCity)
         let weather = weatherCity.WeatherElement
-
+        $('.cityName').text(campCity)
         //天氣溫度
         let weatherTemp = weather[0].Time
 
@@ -204,14 +204,14 @@ $(document).ready(function () {
         : './assets/images/weather-cloudy.png';
         const cardHtml = `
             <div class="weather__box" data-date-index="${idx}">
-                <div class="weather__box-date">日期: ${date}</div>
+                <div class="weather__box-date">${date}</div>
                 <div class="weather__box-info">
                     <img src="${weatherImg}" alt="" width="100%" height="auto">
-                    <p class="weather-time">時間: ${weatherTime}</p>
                     <p class="weather-temp">溫度: ${weatherValue}°C</p>
                 </div>
                 <div class="weather__box-time">
                     <input type="range" min="0" max="${dataArray.length - 1}" step="1" value="0" class="time-range">
+                     <p class="weather-time">${weatherTime}</p>
                 </div>
             </div>
         `;
@@ -237,8 +237,8 @@ $(document).ready(function () {
             const weatherImg = temp > 25
                 ? './assets/images/weather-sun.png'
                 : './assets/images/weather-cloudy.png';
-                
-            $timeText.text(`時間: ${time}`);
+
+            $timeText.text(`${time}`);
             $tempText.text(`溫度: ${temp}°C`);
             $box.find('img').attr('src', weatherImg);
         });
