@@ -9,8 +9,9 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             
-            console.log(data[0]);
-            
+            // console.log(data[0]);
+
+            //新增index id 以利未來使用
             data.forEach((item, index) => {
                 item.id = index;
             })
@@ -18,6 +19,7 @@ $(document).ready(function () {
             campData = data
             renderCamp(campData)
             campDetail()
+            campMap()
         },
         error: function (err) {
             console.error('Error fetching data:', err);
@@ -45,11 +47,10 @@ $(document).ready(function () {
     dataType: 'json',
     data: {
         Authorization: 'CWA-067306D4-D204-46B1-AA1C-A6A3E4D6C7AC',
-        locationId: 'F-D0047-089' // 這是台北市的locationId
+        locationId: 'F-D0047-089'
     },
     success: function (data) { 
         weatherData = data.records.Locations[0].Location
-        console.log(weatherData);
         renderWeather(weatherData)
     },
     error: function (err) {
@@ -112,19 +113,22 @@ $(document).ready(function () {
         let url = new URLSearchParams(window.location.search)
         let id = url.get('id')
         let camp = campData.find(camp => camp.id == id)
-        console.log(camp)
+
         if(camp.mobile == null ){
             camp.mobile = '暫無資料'
         }
         if(camp.website == null ){
             camp.website = '暫無資料'
         }
+        //這邊是避免無資料仍有空連結的情況, 會誤導使用者
         let websiteHtml = (camp.website !== '暫無資料') 
         ? `<a href="${camp.website}" target="_blank">${camp.name}</a>`
         : camp.website
         let phoneHtml = (camp.mobile !== '暫無資料' || camp.phone !== null)
         ? `${camp.mobile} / ${camp.phone}`
         : camp.mobile
+
+
         let campHtml = `
             <div class="camp__detail">
                 <p>露營地名稱：${camp.name}</p>
@@ -134,17 +138,36 @@ $(document).ready(function () {
                 <p>網址：${websiteHtml}</p>
             </div>
             <div class="camp__images">
-                
+                <div id="map" style="height: 300px; width: 100%;"></div>
             </div>
         `
         $('.camp-container').append(campHtml)
         
     }
+    //露營地地圖位置(搭配Leaflet OpenStreetMap)
+    function campMap(){
+        //同樣先找到對應的露營地資料
+        let url = new URLSearchParams(window.location.search)
+        let id = url.get('id')
+        let camp = campData.find(camp => camp.id == id)
+
+        const map = L.map('map').setView([camp.latitude, camp.longitude], 15);
+        // 加上底圖圖層（OpenStreetMap）
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 加上標記
+        L.marker([camp.latitude, camp.longitude]).addTo(map).bindPopup('露營地位置').openPopup();
+
+    }
+
 
     $('.result-container').on('click', '.campLink', function(){
         const campId = this.dataset.id
         location.href = `campDetail.html?id=${campId}`
     })
+    
 
 
     // 渲染天氣
