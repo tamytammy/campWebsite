@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let campData = []
     let trailData = []
+    let weatherData = []
     // 露營地JSON
     $.ajax({
         url: './assets/data/campgrounds.json',
@@ -46,8 +47,10 @@ $(document).ready(function () {
         Authorization: 'CWA-067306D4-D204-46B1-AA1C-A6A3E4D6C7AC',
         locationId: 'F-D0047-089' // 這是台北市的locationId
     },
-    success: function (data) {
-        // console.log(data); 
+    success: function (data) { 
+        weatherData = data.records.Locations[0].Location
+        console.log(weatherData);
+        renderWeather(weatherData)
     },
     error: function (err) {
         console.error('Error fetching data:', err);
@@ -62,7 +65,7 @@ $(document).ready(function () {
             campHtml += `
                 <div class="result__box">
                     <div class="result__box-img">
-                        <img src="" alt="" width="150px" height="150px">
+                        <img src="./assets/images/camp-icon.png" alt="" width="150px" height="150px">
                     </div>
                     <div class="result__box-info campLink" data-id="${campData[i].id}">
                         <div class="result__box-info-title">露營地名稱：${campData[i].name}</div>
@@ -98,7 +101,10 @@ $(document).ready(function () {
         let filterCampData = campData.filter(camp => 
             searchWord.every(word => camp.city.includes(word) || camp.district.includes(word) || camp.name.includes(word) )
         )
+
+        
         renderCamp(filterCampData)
+        $('.main').hide()
     })
 
     //露營地網址連結
@@ -106,27 +112,33 @@ $(document).ready(function () {
         let url = new URLSearchParams(window.location.search)
         let id = url.get('id')
         let camp = campData.find(camp => camp.id == id)
-
-        if(camp.phone == null || camp.website == null){
-            camp.phone = '暫無資料'
+        console.log(camp)
+        if(camp.mobile == null ){
+            camp.mobile = '暫無資料'
+        }
+        if(camp.website == null ){
             camp.website = '暫無資料'
         }
+        let websiteHtml = (camp.website !== '暫無資料') 
+        ? `<a href="${camp.website}" target="_blank">${camp.name}</a>`
+        : camp.website
+        let phoneHtml = (camp.mobile !== '暫無資料' || camp.phone !== null)
+        ? `${camp.mobile} / ${camp.phone}`
+        : camp.mobile
         let campHtml = `
             <div class="camp__detail">
                 <p>露營地名稱：${camp.name}</p>
                 <p>所屬區域：${camp.city}${camp.district}</p>
                 <p>地址：${camp.address}</p>
-                <p>電話：${camp.phone}</p>
-                <p>網址：${camp.website}</p>
+                <p>電話：${phoneHtml}</p>
+                <p>網址：${websiteHtml}</p>
             </div>
             <div class="camp__images">
                 
             </div>
         `
         $('.camp-container').append(campHtml)
-
-        console.log(camp)
-
+        
     }
 
     $('.result-container').on('click', '.campLink', function(){
@@ -134,6 +146,83 @@ $(document).ready(function () {
         location.href = `campDetail.html?id=${campId}`
     })
 
+
+    // 渲染天氣
+    // 1. 當前露營地資料
+    // 2. 比對天氣位置資料
+    function renderWeather(weatherData){
+        let campId = new URLSearchParams(window.location.search).get('id')
+        //比對露營地與天氣資料
+        let camp = campData.find(camp => camp.id == campId)
+        let campCity = camp.city
+        let weatherCity = weatherData.find(city =>city.LocationName == campCity)
+        let weather = weatherCity.WeatherElement
+
+        //天氣溫度
+        let weatherTemp = weather[0].Time
+
+        //天氣現象描述
+        let weatherDesc = weather[9].Time[0].ElementValue[0].WeatherDescription
+        console.log(weatherDesc);
+        let groupedByDate = {};
+
+        //將資料依日期分組
+        weatherTemp.forEach(item => {
+            let date = item.DataTime.split('T')[0];
+            if (!groupedByDate[date]) {
+                groupedByDate[date] = [];
+            }
+            groupedByDate[date].push(item);
+        });
+        
+
+        Object.entries(groupedByDate).forEach(([date, dataArray], idx) => {
+        const first = dataArray[0];
+        const weatherTime = first.DataTime.split('T')[1].substring(0, 5);
+        const weatherValue = first.ElementValue[0].Temperature;
+
+        const cardHtml = `
+            <div class="weather__box" data-date-index="${idx}">
+                <div class="weather__box-date">日期: ${date}</div>
+                <div class="weather__box-info">
+                    <img src="./assets/images/weather-icon.png" alt="" width="100%" height="130px">
+                    <p class="weather-time">時間: ${weatherTime}</p>
+                    <p class="weather-temp">溫度: ${weatherValue}°C</p>
+                </div>
+                <div class="weather__box-time">
+                    <input type="range" min="0" max="${dataArray.length - 1}" step="1" value="0" class="time-range">
+                </div>
+            </div>
+        `;
+
+        $('.weather').append(cardHtml);
+    });
+
+         $('.weather__box').each(function (boxIndex) {
+        const $box = $(this);
+        const $range = $box.find('.time-range');
+        const $timeText = $box.find('.weather-time');
+        const $tempText = $box.find('.weather-temp');
+
+        // 找對應的資料
+        const date = $box.find('.weather__box-date').text().replace('日期: ', '');
+        const dataArray = groupedByDate[date];
+
+        $range.on('input', function () {
+            const idx = parseInt(this.value);
+            const item = dataArray[idx];
+            const time = item.DataTime.split('T')[1].substring(0, 5);
+            const temp = item.ElementValue[0].Temperature;
+
+            $timeText.text(`時間: ${time}`);
+            $tempText.text(`溫度: ${temp}°C`);
+        });
+    });
+
+
+ 
+
+    }
   
 
 
