@@ -2,6 +2,8 @@ $(document).ready(function () {
     let campData = []
     let trailData = []
     let weatherData = []
+
+
     // 露營地JSON
     $.ajax({
         url: './assets/data/campgrounds.json',
@@ -25,7 +27,6 @@ $(document).ready(function () {
             console.error('Error fetching data:', err);
         }
     });
-
     // 步道JSON
     $.ajax({
         url: './assets/data/hikingRoad.json', 
@@ -39,7 +40,6 @@ $(document).ready(function () {
             console.error('Error fetching data:', err);
         }
     });
-
     //天氣API
     $.ajax({
        url: 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093',
@@ -57,6 +57,7 @@ $(document).ready(function () {
         console.error('Error fetching data:', err);
     }
     });
+
 
     //露營地渲染, 每次先清空避免重複渲染
     function renderCamp(campData){
@@ -92,8 +93,6 @@ $(document).ready(function () {
             })
         })
     }
-
-
     //露營地即時搜尋功能
     $('#search').on('input', function (){
         let searchValue = this.value.trim()
@@ -107,7 +106,6 @@ $(document).ready(function () {
         renderCamp(filterCampData)
         $('.main').hide()
     })
-
     //露營地網址連結
     function campDetail(){
         let url = new URLSearchParams(window.location.search)
@@ -161,8 +159,6 @@ $(document).ready(function () {
         L.marker([camp.latitude, camp.longitude]).addTo(map).bindPopup('露營地位置').openPopup();
 
     }
-
-
     $('.result-container').on('click', '.campLink', function(){
         const campId = this.dataset.id
         location.href = `campDetail.html?id=${campId}`
@@ -203,12 +199,14 @@ $(document).ready(function () {
         const first = dataArray[0];
         const weatherTime = first.DataTime.split('T')[1].substring(0, 5);
         const weatherValue = first.ElementValue[0].Temperature;
-
+        let weatherImg = weatherValue > 25
+        ? './assets/images/weather-sun.png'
+        : './assets/images/weather-cloudy.png';
         const cardHtml = `
             <div class="weather__box" data-date-index="${idx}">
                 <div class="weather__box-date">日期: ${date}</div>
                 <div class="weather__box-info">
-                    <img src="./assets/images/weather-icon.png" alt="" width="100%" height="130px">
+                    <img src="${weatherImg}" alt="" width="100%" height="auto">
                     <p class="weather-time">時間: ${weatherTime}</p>
                     <p class="weather-temp">溫度: ${weatherValue}°C</p>
                 </div>
@@ -236,9 +234,13 @@ $(document).ready(function () {
             const item = dataArray[idx];
             const time = item.DataTime.split('T')[1].substring(0, 5);
             const temp = item.ElementValue[0].Temperature;
-
+            const weatherImg = temp > 25
+                ? './assets/images/weather-sun.png'
+                : './assets/images/weather-cloudy.png';
+                
             $timeText.text(`時間: ${time}`);
             $tempText.text(`溫度: ${temp}°C`);
+            $box.find('img').attr('src', weatherImg);
         });
     });
 
