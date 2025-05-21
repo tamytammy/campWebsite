@@ -103,8 +103,10 @@ $(document).ready(function () {
             searchWord.every(word => camp.city.includes(word) || camp.district.includes(word) || camp.name.includes(word) )
         )
 
+        $('.result').show()
         
         renderCamp(filterCampData)
+        
         $('.main').hide()
     })
     //露營地網址連結
@@ -235,7 +237,7 @@ $(document).ready(function () {
             const item = dataArray[idx];
             const time = item.DataTime.split('T')[1].substring(0, 5);
             const temp = item.ElementValue[0].Temperature;
-            const weatherImg = temp > 25
+            const weatherImg = temp > 28
                 ? './assets/images/weather-sun.png'
                 : './assets/images/weather-cloudy.png';
 
