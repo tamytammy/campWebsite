@@ -219,7 +219,12 @@
 }
 
 .trail-container {
-  border: 1px solid blue;
-  height: 150px;
   width: 100%;
+  border-top: #ccc 5px solid;
+}
+.trail-container h1 {
+  font-size: 32px;
+  padding: 30px;
+  font-weight: 700;
+  color: #5b8e80;
 }/*# sourceMappingURL=style.css.map */

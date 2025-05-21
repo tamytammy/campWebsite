@@ -143,7 +143,12 @@
 }
 
 .trail-container{
-    border: 1px solid blue;
-    height: 150px;
     width: 100%;
+    border-top: #ccc 5px solid ;
+    h1{
+            font-size: 32px;
+            padding: 30px;
+            font-weight: 700;
+            color: $camp-green;
+        }
 }

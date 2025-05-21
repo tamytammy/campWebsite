@@ -33,8 +33,9 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            // console.log(data[0]);
+            console.log(data[0]);
             trailData = data
+            // renderTrail(trailData)
         },
         error: function (err) {
             console.error('Error fetching data:', err);
@@ -248,8 +249,32 @@ $(document).ready(function () {
  
 
     }
-  
 
+
+    //渲染步道
+    function renderTrail(trailData){
+        let trailHtml= ''
+        $('.trail-container').empty()
+        trailData.forEach(trail => {
+            trailHtml+= `
+            <div class="trail-wrapper">
+                        <div class="trail-title">
+                        <p>所在地區:${trail.TR_POSITION}</p>
+                    </div>
+                    <div class="trail-list">
+                        <div class="list-name">
+                            <p>步道名稱:${trail.TR_CNAME}</p>
+                            <p>海拔高度:${trail.TR_ALT}</p>
+                            <p>步道總長度:${trail.TR_LENGTH}</p>
+                            <p>步道難易度:${trail.TR_DIF_CLASS}</p>
+                            <p>步道說明:${trail.TR_PAVE}</p>
+                        </div>
+                    </div>
+                    </div>
+        `
+        })
+        $('.trail-container').append(trailHtml);
+    }
 
     
 });
