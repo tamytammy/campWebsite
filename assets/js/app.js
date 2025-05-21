@@ -35,7 +35,7 @@ $(document).ready(function () {
         success: function (data) {
             console.log(data[0]);
             trailData = data
-            // renderTrail(trailData)
+            renderTrail(trailData)
         },
         error: function (err) {
             console.error('Error fetching data:', err);
@@ -253,24 +253,36 @@ $(document).ready(function () {
 
     //渲染步道
     function renderTrail(trailData){
+
+        let campId = new URLSearchParams(window.location.search).get('id')
+        let camp = campData.find(camp => camp.id == campId)
+        let campCity = camp.city
+        let trailArea = trailData.filter(trail => trail.TR_POSITION.includes(campCity))
+        console.log(trailArea);        
         let trailHtml= ''
-        $('.trail-container').empty()
-        trailData.forEach(trail => {
+        $('.trail-wrapper').empty()
+        trailArea.forEach(trail => {
             trailHtml+= `
             <div class="trail-wrapper">
-                        <div class="trail-title">
+                    <div class="trail-img">
+                        <img src="./assets/images/hiking-icon.avif" width="100%" height="auto">
+                    </div>
+
+                    <div class="trail-info">
+                    <div class="trail-title">
                         <p>所在地區:${trail.TR_POSITION}</p>
                     </div>
                     <div class="trail-list">
                         <div class="list-name">
                             <p>步道名稱:${trail.TR_CNAME}</p>
-                            <p>海拔高度:${trail.TR_ALT}</p>
+                            <p>海拔高度:${trail.TR_ALT}m</p>
                             <p>步道總長度:${trail.TR_LENGTH}</p>
                             <p>步道難易度:${trail.TR_DIF_CLASS}</p>
                             <p>步道說明:${trail.TR_PAVE}</p>
                         </div>
                     </div>
                     </div>
+            </div>
         `
         })
         $('.trail-container').append(trailHtml);

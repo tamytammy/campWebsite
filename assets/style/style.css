@@ -227,4 +227,25 @@
   padding: 30px;
   font-weight: 700;
   color: #5b8e80;
+}
+.trail-container .trail-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.trail-container .trail-wrapper .trail-img {
+  width: 15%;
+}
+.trail-container .trail-wrapper .trail-info {
+  border: 1px solid #303030;
+  border-radius: 6.5px;
+  width: 70%;
+  align-self: center;
+  padding: 20px;
+  background-color: #f2b474;
+}
+.trail-container .trail-wrapper .trail-info p {
+  padding: 5px 0;
+  color: #303030;
 }/*# sourceMappingURL=style.css.map */

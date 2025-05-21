@@ -151,4 +151,25 @@
             font-weight: 700;
             color: $camp-green;
         }
+    .trail-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 10px;
+        .trail-img{
+            width: 15%;
+        }
+        .trail-info{
+            border: 1px solid #303030;
+            border-radius: 6.5px;
+            width: 70%;
+            align-self: center;
+            padding: 20px;
+            background-color: $mine-yellow;
+            p{
+                padding: 5px 0;
+                color: #303030;
+            }
+        }
+    }
 }
