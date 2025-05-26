@@ -3,15 +3,15 @@ $(document).ready(function () {
     let trailData = []
     let weatherData = []
 
-
+    let currentPage = 1
+    let isLoading = false;
+    let activeData = []
     // 露營地JSON
     $.ajax({
         url: './assets/data/campgrounds.json',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            
-            // console.log(data[0]);
 
             //新增index id 以利未來使用
             data.forEach((item, index) => {
@@ -19,7 +19,9 @@ $(document).ready(function () {
             })
 
             campData = data
-            renderCamp(campData)
+            activeData = campData
+            
+            loadProducts(currentPage, campData)
             campDetail()
             campMap()
         },
@@ -63,7 +65,7 @@ $(document).ready(function () {
     //露營地渲染, 每次先清空避免重複渲染
     function renderCamp(campData){
         let campHtml = ''
-        $('.result-container').empty()
+        // $('.result-container').empty()
         for(let i =0; i<10;i++){
             campHtml += `
                 <div class="result__box">
@@ -96,19 +98,46 @@ $(document).ready(function () {
     }
     //露營地即時搜尋功能
     $('#search').on('input', function (){
+        $('.result-container').empty() // 清空結果容器
+        currentPage = 1 // 重置頁碼
         let searchValue = this.value.trim()
         let searchWord = searchValue.split(/\s+/)
-
-        let filterCampData = campData.filter(camp => 
+        
+        activeData = campData.filter(camp => 
             searchWord.every(word => camp.city.includes(word) || camp.district.includes(word) || camp.name.includes(word) )
         )
 
         $('.result').show()
-        
-        renderCamp(filterCampData)
-        
         $('.main').hide()
+        loadProducts(currentPage, activeData) // 重新載入第一頁的產品
     })
+
+
+    function loadProducts(page, data = campData) {
+
+    let totalPages = Math.ceil(data.length / 10);
+    if (page > totalPages) return;
+
+    $('#loading').show();
+    isLoading = true;
+
+  setTimeout(() => {
+         renderCamp(data.slice((page - 1) * 10, page * 10));
+        $('#loading').hide();
+        isLoading = false;
+  }, 2000); // 模擬 API 載入延遲
+}
+
+$(window).on('scroll', function () {
+  if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+    if (!isLoading) {
+      currentPage++;
+      loadProducts(currentPage, activeData);
+    }
+  }
+});
+
+
     //露營地網址連結
     function campDetail(){
         let url = new URLSearchParams(window.location.search)

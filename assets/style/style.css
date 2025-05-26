@@ -119,6 +119,12 @@
 .result .result-container .result__box .like-wrapper button .active {
   display: inline-block;
 }
+.result .result-loading {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .camp-container {
   display: flex;
