@@ -20,7 +20,7 @@ $(document).ready(function () {
 
             campData = data
             activeData = campData
-            
+
             loadProducts(currentPage, campData)
             campDetail()
             campMap()
@@ -35,7 +35,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            console.log(data[0]);
+            // console.log(data[0]);
             trailData = data
             renderTrail(trailData)
         },
@@ -65,7 +65,6 @@ $(document).ready(function () {
     //露營地渲染, 每次先清空避免重複渲染
     function renderCamp(campData){
         let campHtml = ''
-        // $('.result-container').empty()
         for(let i =0; i<10;i++){
             campHtml += `
                 <div class="result__box">
@@ -126,16 +125,16 @@ $(document).ready(function () {
         $('#loading').hide();
         isLoading = false;
   }, 2000); // 模擬 API 載入延遲
-}
+    }
 
-$(window).on('scroll', function () {
+    $(window).on('scroll', function () {
   if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
     if (!isLoading) {
       currentPage++;
       loadProducts(currentPage, activeData);
     }
   }
-});
+    });
 
 
     //露營地網址連結
