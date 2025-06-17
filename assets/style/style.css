@@ -92,6 +92,11 @@
   padding: 10px 15px;
   border-bottom: 1px solid #ccc;
 }
+@media (max-width: 767px) {
+  .result .result-container .result__box-img {
+    display: none;
+  }
+}
 .result .result-container .result__box-info {
   display: flex;
   flex-direction: column;
@@ -101,6 +106,12 @@
   gap: 15px;
   cursor: pointer;
   transition: all 0.3s ease-out;
+}
+@media (max-width: 767px) {
+  .result .result-container .result__box-info {
+    width: 90%;
+    padding: 30px 0;
+  }
 }
 .result .result-container .result__box-info:hover {
   background-color: rgba(255, 255, 255, 0.5);
@@ -128,9 +139,15 @@
 
 .camp-container {
   display: flex;
+  flex-wrap: wrap;
   background-color: #5b8e80;
   border-top: #ccc 5px solid;
   border-bottom: #ccc 5px solid;
+}
+@media (max-width: 767px) {
+  .camp-container {
+    flex-direction: column;
+  }
 }
 .camp-container .camp__detail {
   width: 40%;
@@ -141,6 +158,11 @@
   text-align: left;
   align-self: center;
 }
+@media (max-width: 767px) {
+  .camp-container .camp__detail {
+    width: 100%;
+  }
+}
 .camp-container .camp__detail p {
   color: #fff;
 }
@@ -150,6 +172,11 @@
 .camp-container .camp__images {
   width: 60%;
   border-top-left-radius: 40px;
+}
+@media (max-width: 767px) {
+  .camp-container .camp__images {
+    width: 100%;
+  }
 }
 
 .weather-container h1 {
@@ -172,6 +199,7 @@
   background-size: cover;
   background-position: center;
   min-width: 169px;
+  max-width: 300px;
   min-height: 258px;
   border-radius: 40px;
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
@@ -243,6 +271,11 @@
 .trail-container .trail-wrapper .trail-img {
   width: 15%;
 }
+@media (max-width: 767px) {
+  .trail-container .trail-wrapper .trail-img {
+    display: none;
+  }
+}
 .trail-container .trail-wrapper .trail-info {
   border: 1px solid #303030;
   border-radius: 6.5px;
@@ -250,6 +283,11 @@
   align-self: center;
   padding: 20px;
   background-color: #f2b474;
+}
+@media (max-width: 767px) {
+  .trail-container .trail-wrapper .trail-info {
+    width: 90%;
+  }
 }
 .trail-container .trail-wrapper .trail-info p {
   padding: 5px 0;

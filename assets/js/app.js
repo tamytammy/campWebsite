@@ -111,7 +111,7 @@ $(document).ready(function () {
         loadProducts(currentPage, activeData) // 重新載入第一頁的產品
     })
 
-
+    //infinite scroll
     function loadProducts(page, data = campData) {
 
     let totalPages = Math.ceil(data.length / 10);
@@ -124,7 +124,7 @@ $(document).ready(function () {
          renderCamp(data.slice((page - 1) * 10, page * 10));
         $('#loading').hide();
         isLoading = false;
-  }, 2000); // 模擬 API 載入延遲
+  }, 2000); 
     }
 
     $(window).on('scroll', function () {
@@ -183,7 +183,7 @@ $(document).ready(function () {
         const map = L.map('map').setView([camp.latitude, camp.longitude], 15);
         // 加上底圖圖層（OpenStreetMap）
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         // 加上標記
@@ -208,15 +208,23 @@ $(document).ready(function () {
         let weatherCity = weatherData.find(city =>city.LocationName == campCity)
         let weather = weatherCity.WeatherElement
         $('.cityName').text(campCity)
+
+        console.log('天氣資訊:',weather);
+
         //天氣溫度
         let weatherTemp = weather[0].Time
-
+        let weatherRainy = weather[7].Time
+        // console.log('溫度:', weatherTemp);
+        console.log('降雨:',weatherRainy);
+        
         //天氣現象描述
         let weatherDesc = weather[9].Time[0].ElementValue[0].WeatherDescription
-        console.log(weatherDesc);
-        let groupedByDate = {};
+        // console.log(weatherDesc);
 
-        //將資料依日期分組
+        let groupedByDate = {};
+        let groupedByTime = {}
+
+        //將溫度資料依日期分組(五天)
         weatherTemp.forEach(item => {
             let date = item.DataTime.split('T')[0];
             if (!groupedByDate[date]) {
@@ -224,6 +232,18 @@ $(document).ready(function () {
             }
             groupedByDate[date].push(item);
         });
+
+        //將降雨資料依日期分組(五天)
+        weatherRainy.forEach(item => {
+            let time = item.StartTime.split('T')[0]
+            if (!groupedByTime[time]) {
+                groupedByTime[time] = [];
+            }
+            groupedByTime[time].push(item);
+        });
+
+        console.log(groupedByTime);
+        console.log(groupedByDate);
         
 
         Object.entries(groupedByDate).forEach(([date, dataArray], idx) => {
@@ -238,7 +258,7 @@ $(document).ready(function () {
                 <div class="weather__box-date">${date}</div>
                 <div class="weather__box-info">
                     <img src="${weatherImg}" alt="" width="100%" height="auto">
-                    <p class="weather-temp">溫度: ${weatherValue}°C</p>
+                    <p class="weather-temp">溫度：${weatherValue}°C</p>
                 </div>
                 <div class="weather__box-time">
                     <input type="range" min="0" max="${dataArray.length - 1}" step="1" value="0" class="time-range">
@@ -248,17 +268,33 @@ $(document).ready(function () {
         `;
 
         $('.weather').append(cardHtml);
-    });
+
+        });
+        Object.entries(groupedByTime).forEach(([date, dataArray], idx) => {
+            const first = dataArray[0];
+            const rainyTime = first.StartTime.split('T')[1].substring(0, 5);
+            const rainyValue = first.ElementValue[0].ProbabilityOfPrecipitation;
+
+            const cardHtml = `
+                <p class="weather-rainy">降雨：${rainyValue}%</p>
+            `;
+
+            $(`.weather__box[data-date-index="${idx}"] .weather__box-info`).append(cardHtml);
+        });
+
+        
 
          $('.weather__box').each(function (boxIndex) {
         const $box = $(this);
         const $range = $box.find('.time-range');
         const $timeText = $box.find('.weather-time');
         const $tempText = $box.find('.weather-temp');
+        const $rainyText = $box.find('.weather-rainy');
 
         // 找對應的資料
         const date = $box.find('.weather__box-date').text().replace('日期: ', '');
         const dataArray = groupedByDate[date];
+        const rainArray = groupedByTime[date];
 
         $range.on('input', function () {
             const idx = parseInt(this.value);
@@ -269,8 +305,13 @@ $(document).ready(function () {
                 ? './assets/images/weather-sun.png'
                 : './assets/images/weather-cloudy.png';
 
+            const rainy = rainArray[idx];
+            const rainTime = rainy.StartTime.split('T')[1].substring(0, 5);
+            const rainProb = rainy.ElementValue[0].ProbabilityOfPrecipitation;
+
             $timeText.text(`${time}`);
-            $tempText.text(`溫度: ${temp}°C`);
+            $tempText.text(`溫度：${temp}°C`);
+            $rainyText.text(`降雨：${rainProb}°C`);
             $box.find('img').attr('src', weatherImg);
         });
     });

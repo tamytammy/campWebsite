@@ -7,6 +7,11 @@
             align-items: center;
             padding: 10px 15px;
             border-bottom: 1px solid #ccc;
+            &-img{
+                @include respond('mobile') {
+                    display: none;
+                }
+            }
             &-info{
                 display: flex;
                 flex-direction: column;
@@ -16,6 +21,10 @@
                 gap: 15px;
                 cursor: pointer;
                 transition: all .3s ease-out;
+                @include respond('mobile') {
+                    width: 90%;
+                    padding: 30px 0;
+                }
                 &:hover{
                     background-color: rgba(#fff, 0.5);
                 }
@@ -48,6 +57,10 @@
 
 .camp-container{
     display: flex;
+    flex-wrap: wrap;
+    @include respond('mobile') {
+        flex-direction: column;
+    }
     background-color: $camp-green;
     border-top: #ccc 5px solid ;
     border-bottom: #ccc 5px solid ;
@@ -59,6 +72,9 @@
         gap: 15px;
         text-align: left;
         align-self: center;
+        @include respond('mobile') {
+            width: 100%;
+        }
         p{
             color: #fff;
             a{
@@ -70,6 +86,9 @@
     .camp__images{
         width: 60%;
         border-top-left-radius: 40px;
+        @include respond('mobile') {
+            width: 100%;
+        }
     }   
 }
 
@@ -94,6 +113,7 @@
                 background-size: cover;
                 background-position: center; 
                 min-width: 169px;
+                max-width: 300px;
                 min-height: 258px;
                 border-radius: 40px;
                 box-shadow: 0 10px 50px rgba(#000, 0.25);
@@ -164,6 +184,9 @@
         margin-bottom: 10px;
         .trail-img{
             width: 15%;
+            @include respond('mobile') {
+            display: none;
+            }
         }
         .trail-info{
             border: 1px solid #303030;
@@ -172,6 +195,9 @@
             align-self: center;
             padding: 20px;
             background-color: $mine-yellow;
+            @include respond('mobile') {
+                width: 90%;
+            }
             p{
                 padding: 5px 0;
                 color: #303030;
