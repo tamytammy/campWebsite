@@ -9,10 +9,9 @@
 - 露營地詳細內容將結合該地區
    - 搭配中央氣象局API即時顯示天氣資訊
    - 提供附近的步道資訊
+- PWA功能、可加入至主畫面(無法離線存取)
 - 尚未完成功能
-  - 離線使用 PWA
-  - 介紹頁面搜尋結果沒有載入更多資料
-  - 增加天氣詳細敘述,降雨等其他資訊
+  - 增加天氣詳細敘述等其他資訊
   - 首頁預設資料根據使用者位置渲染
 
 
@@ -31,8 +30,11 @@
 1. 將本專案 clone 至本地：
    ```bash
    git clone https://github.com/yourname/weather-camp-project.git
+2. Github Pages：
+  [https://tamytammy.github.io/campWebsite/](https://tamytammy.github.io/campWebsite/)
 
 ##  作者資訊
+
 - **作者**：何怡德
 - **聯絡信箱**：momo09041027@gmail.com
 

@@ -2,9 +2,9 @@ const CACHE_NAME = "camp-cache-v1";
 const urlsToCache = [
   "./",
   "./index.html",
-  "./assets/css/style.css",
+  "./assets/style/style.css",
   "./assets/js/app.js",
-  "./assets/images/logo.png"
+  "./assets/images/favicon.png"
 ];
 
 self.addEventListener("install", function (event) {
