@@ -182,6 +182,7 @@
         flex-wrap: wrap;
         justify-content: space-around;
         margin-bottom: 10px;
+        
         .trail-img{
             width: 15%;
             @include respond('mobile') {
