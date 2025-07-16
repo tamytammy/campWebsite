@@ -106,6 +106,7 @@ $(document).ready(function () {
             searchWord.every(word => camp.city.includes(word) || camp.district.includes(word) || camp.name.includes(word) )
         )
 
+
         $('.result').show()
         $('.main').hide()
         loadProducts(currentPage, activeData) // 重新載入第一頁的產品
@@ -311,7 +312,7 @@ $(document).ready(function () {
 
             $timeText.text(`${time}`);
             $tempText.text(`溫度：${temp}°C`);
-            $rainyText.text(`降雨：${rainProb}°C`);
+            $rainyText.text(`降雨：${rainProb}%`);
             $box.find('img').attr('src', weatherImg);
         });
     });
